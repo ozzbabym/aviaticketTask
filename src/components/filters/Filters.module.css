@@ -1,0 +1,14 @@
+.wrapper {
+    background-color: lightgrey;
+    height: 100vh;
+}
+
+.container {
+    background-color: white;
+    margin-top: 50px;
+    padding: 5px 0px 50px 20px;
+}
+
+.sortFilter {
+    margin-top: 25px;
+}

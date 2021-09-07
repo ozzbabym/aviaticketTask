@@ -1,0 +1,74 @@
+.wrapper {
+    margin: 25px;
+}
+
+.ticket {
+    margin: 25px 0px;
+}
+
+.ticketHead {
+    background-color: royalblue;
+    height: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    color: white;
+}
+
+.ticketPrice {
+    text-align: right;
+}
+
+.Price {
+    font-size: 20px;
+}
+.onePerson {
+    font-size: 10px;
+}
+
+.aviaRace {
+    margin: 15px 20px;
+}
+
+.timeTicket {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.replace {
+    background-color: lightgrey;
+    height: 1.5px;
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    justify-content: center;
+    margin: 10px 0px;
+}
+
+.replaceColor {
+    background: white;
+    padding: 0px 10px;
+    color: orange;
+}
+
+.lineBlue {
+    height: 1.5px;
+    background: royalblue;
+    margin: 5px 0px;
+}
+
+.blueText {
+    color: royalblue;
+}
+
+.ticketFooter {
+    background-color: #e6912a;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 20px;
+    color: white;
+}
