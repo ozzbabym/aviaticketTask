@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styles from './Filters.module.css'
 
-export default function Filters({dispatch}) {
+export default function Filters({dispatch, state}) {
     const [highPrice, sethighPrice] = React.useState(true)
     const [lowPrice, setlowPrice] = React.useState(false)
     const [timeWay, settimeWay] = React.useState(false)
@@ -12,6 +12,10 @@ export default function Filters({dispatch}) {
     const [priceFrom, setpriceFrom] = React.useState('')
     const [priceTo, setpriceTo] = React.useState(200000)
 
+    const [changeAvia, setChangeAvia] = React.useState()
+
+    const newArrayArrier = Array.from(new Set(state.flights.map(item=>item.flight.carrier.caption)))
+    
     React.useEffect(() => {
         if(highPrice){
             setlowPrice(false)
@@ -65,8 +69,9 @@ export default function Filters({dispatch}) {
                 dispatch({type: "TIME_WAY"})
             }
         }
-        
-    }, [notSeat, priceFrom, priceTo])
+        dispatch({type: "FROM_PRICE", count: {priceFrom, priceTo}})
+        dispatch({type: "TO_PRICE", count: {priceFrom, priceTo}})
+    }, [notSeat, priceFrom, priceTo,highPrice,lowPrice,timeWay,changeAvia])
 
     React.useEffect(() => {
         if(oneSeat){
@@ -88,15 +93,30 @@ export default function Filters({dispatch}) {
                 dispatch({type: "TIME_WAY"})
             }
         }
-    }, [oneSeat, priceFrom, priceTo])
+        dispatch({type: "FROM_PRICE", count: {priceFrom, priceTo}})
+        dispatch({type: "TO_PRICE", count: {priceFrom, priceTo}})
+    }, [oneSeat, priceFrom, priceTo, highPrice,lowPrice,timeWay, changeAvia])
     
     React.useEffect(() => {
         dispatch({type: "FROM_PRICE", count: {priceFrom, priceTo}})
-    }, [priceFrom])
+    }, [priceFrom, highPrice,lowPrice,timeWay, priceTo, changeAvia])
 
     React.useEffect(() => {
         dispatch({type: "TO_PRICE", count: {priceFrom, priceTo}})
-    }, [priceTo])
+    }, [priceTo, priceFrom, highPrice,lowPrice,timeWay, changeAvia])
+
+    React.useEffect(() => {
+        console.log(changeAvia)
+        if(changeAvia && changeAvia[Object.keys(changeAvia)[0]]){
+            dispatch({type: "CAPTION", caption: Object.keys(changeAvia)[0]})
+        }
+        else{
+            dispatch({type: "HIGH_PRICE"})
+            dispatch({type: "FROM_PRICE", count: {priceFrom, priceTo}})
+            dispatch({type: "TO_PRICE", count: {priceFrom, priceTo}})
+        }
+    }, [changeAvia])
+
 
     return (
         <div className={styles.wrapper}>
@@ -142,30 +162,11 @@ export default function Filters({dispatch}) {
                     <b>Авиакомпании</b>
                     <br/>
                     <br/>
-                    <div>
-                        <input type="checkbox" /> - Аэрофлот
-                    </div>
-                    <div>
-                        <input type="checkbox" /> - Россия
-                    </div>
-                    <div>
-                        <input type="checkbox" /> - Аэрофлот
-                    </div>
-                    <div>
-                        <input type="checkbox" /> - Россия
-                    </div>
-                    <div>
-                        <input type="checkbox" /> - Аэрофлот
-                    </div>
-                    <div>
-                        <input type="checkbox" /> - Россия
-                    </div>
-                    <div>
-                        <input type="checkbox" /> - Аэрофлот
-                    </div>
-                    <div>
-                        <input type="checkbox" /> - Россия
-                    </div>
+                    {newArrayArrier.map(item=>{   
+                        return <div key={item}>
+                                    <input type="checkbox" onChange={e=>setChangeAvia({[e.target.value]: e.target.checked})} value={item}/> - {item}
+                                </div>
+                    })}
                 </div>
             </div>
         </div>

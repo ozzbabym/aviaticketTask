@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div className={styles.wrapper}>
-        <Filters dispatch={dispatch}/>
+        <Filters dispatch={dispatch} state={state}/>
         <Ticket flights={state.flights}/>
     </div>
   );
