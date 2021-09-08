@@ -6,13 +6,14 @@ const  days = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
 
 
 export default function Ticket({flights}) {
-    
+    const [flightsList, setFlightsList] = React.useState([flights[0], flights[1]])
 
-
-
+    React.useEffect(() => {
+        setFlightsList([flights[0], flights[1]])
+    }, [flights])
     return (
         <div className={styles.wrapper}>
-            {flights.map((item, index)=>{
+            {flightsList.map((item, index)=>{
                 const price = item.flight.price.total.amount
                 const carrier = item.flight.carrier.caption
                 const replace = item.flight.legs
@@ -119,6 +120,9 @@ export default function Ticket({flights}) {
                         </div>
                     </div>
             })}
+            <div className={styles.buttonMore}>
+                <button onClick={()=>setFlightsList(flights)}>Показать еще</button>
+            </div>
         </div>
     )
 }
