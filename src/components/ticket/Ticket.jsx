@@ -9,11 +9,15 @@ export default function Ticket({flights}) {
     const [flightsList, setFlightsList] = React.useState([flights[0], flights[1]])
 
     React.useEffect(() => {
-        setFlightsList([flights[0], flights[1]])
+        if(flights[0]){
+            setFlightsList([flights[0], flights[1]])
+        }
     }, [flights])
+
+    console.log(flightsList)
     return (
         <div className={styles.wrapper}>
-            {flightsList.map((item, index)=>{
+            {flightsList && flightsList.map((item, index)=>{
                 const price = item.flight.price.total.amount
                 const carrier = item.flight.carrier.caption
                 const replace = item.flight.legs
