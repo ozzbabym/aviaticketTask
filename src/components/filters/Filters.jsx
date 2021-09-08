@@ -106,7 +106,6 @@ export default function Filters({dispatch, state}) {
     }, [priceTo, priceFrom, highPrice,lowPrice,timeWay, changeAvia])
 
     React.useEffect(() => {
-        console.log(changeAvia)
         if(changeAvia && changeAvia[Object.keys(changeAvia)[0]]){
             dispatch({type: "CAPTION", caption: Object.keys(changeAvia)[0]})
         }
@@ -114,6 +113,12 @@ export default function Filters({dispatch, state}) {
             dispatch({type: "HIGH_PRICE"})
             dispatch({type: "FROM_PRICE", count: {priceFrom, priceTo}})
             dispatch({type: "TO_PRICE", count: {priceFrom, priceTo}})
+            if(oneSeat){
+                dispatch({type: 'ONE_SEAT'})
+            }
+            if(notSeat){
+                dispatch({type: 'NOT_SEAT'})
+            }
         }
     }, [changeAvia])
 
